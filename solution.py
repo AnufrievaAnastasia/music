@@ -1,10 +1,25 @@
 from main import *
+print('Программа позволяет получить информацию о музыкальном альбоме \n'
+      'Если вы хотите остановить запись, введите:  "EXIT" \n'
+      'Вводите данные по образцу:\n'
+      'Название альбома, год релиза')
 
-album = Album("Bob's First Single", '2:45',  '2001')
-album.add_song("A Ballad about Cheese", '2:45', 'dfdf', '2001')
-album.add_song("1", '2', '3', '4')
-band = Album("Bob's First Single1234", '2:45',  '2001')
-band.add_song("12", '22', '32', '42')
+key = True
+while key:
+    try:
+        name, release_year = input('Введите данные о музыкальном альбоме  \n').split(',')
+        info = Album(name, release_year)
+        while key:
+            try:
+                name, duration, artist, release_year = input('Введите данные о песне  \n').split(',')
+                info.add_song(name, duration, artist, release_year)
+                my_file = open("information.txt", "a")
+                my_file.write(str(info.songs))
+            except ValueError:
+                print('Запись завершена.')
+                key = False
 
-print(album.songs)
+    except ValueError:
+        print('Запись завершена.')
+        key = False
 
